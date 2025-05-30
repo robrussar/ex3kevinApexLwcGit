@@ -1,0 +1,42 @@
+<template>
+    <lightning-card title="Account Processor" icon-name="standard:account">
+        <div class="slds-var-m-around_medium">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <lightning-button 
+                        label="Process Accounts" 
+                        onclick={handleProcessAccounts}
+                        variant="brand" 
+                        class="slds-var-m-bottom_medium">
+                    </lightning-button>
+                </div>
+            </div>
+            
+            <!-- Display loading spinner when processing -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+            
+            <!-- Show data table only if we have accounts -->
+            <template if:true={hasAccounts}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={accounts}
+                    columns={columns}
+                    sorted-by={sortedBy}
+                    sorted-direction={sortDirection}
+                    onsort={handleSort}
+                    default-sort-direction="asc"
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </template>
+            
+            <!-- Show message if no accounts found -->
+            <template if:true={showNoAccountsMessage}>
+                <div class="slds-text-align_center slds-var-m-top_medium">
+                    No accounts with Type found.
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

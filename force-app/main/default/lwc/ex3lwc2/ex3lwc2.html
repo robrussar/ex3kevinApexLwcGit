@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="Lista de Contas" icon-name="standard:account">
+        <div class="slds-m-around_medium">
+            <template if:true={isLoading}>
+                <div class="slds-is-relative slds-p-around_medium">
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+            </template>
+            
+            <template if:false={isLoading}>
+                <template if:true={error}>
+                    <div class="slds-text-color_error slds-p-around_small">{error}</div>
+                </template>
+                
+                <template if:true={contas.length}>
+                    <p class="slds-m-bottom_small">
+                        Mostrando {contas.length} conta(s) do tipo: {tipoAtual}
+                    </p>
+                    <lightning-datatable
+                        key-field="Id"
+                        data={contas}
+                        columns={columns}
+                        hide-checkbox-column>
+                    </lightning-datatable>
+                </template>
+                
+                <template if:false={contas.length}>
+                    <div class="slds-p-around_small">Nenhuma conta encontrada para esse filtro.</div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

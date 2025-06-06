@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Filtrar Contas" icon-name="standard:filter">
+        <div class="slds-m-around_medium">
+            <lightning-combobox
+                label="Filtrar por Tipo"
+                value={tipoSelecionado}
+                placeholder="Selecione um tipo"
+                options={typeOptions}
+                onchange={handleTypeChange}>
+            </lightning-combobox>
+        </div>
+    </lightning-card>
+</template>

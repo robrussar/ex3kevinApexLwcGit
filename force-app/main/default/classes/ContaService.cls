@@ -1,19 +1,21 @@
 public with sharing class ContaService {
-    @AuraEnabled(cacheable=false) // Ajustar para cacheable=false
+    @AuraEnabled(cacheable=false) // Continuamos com cacheable=false
     public static List<Account> buscarContasPorTipo(String tipo) {
         try {
             List<Account> contas;
             
             if (String.isBlank(tipo) || tipo == 'Todos') {
+                // Ajuste aqui para incluir o filtro de Industry
                 contas = [SELECT Id, Name, Type, Industry, Description, Active__c 
                           FROM Account 
-                          WHERE Type != null 
+                          WHERE Type != null AND Industry != null
                           ORDER BY Name 
                           LIMIT 100];
             } else {
+                // Ajuste aqui para incluir o filtro de Industry
                 contas = [SELECT Id, Name, Type, Industry, Description, Active__c 
                           FROM Account 
-                          WHERE Type = :tipo 
+                          WHERE Type = :tipo AND Industry != null
                           ORDER BY Name 
                           LIMIT 100];
             }
